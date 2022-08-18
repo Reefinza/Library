@@ -1,4 +1,4 @@
 const DbMigration = async (db) => {
-    db.squelize.sync()
+    db.squelize.sync({force: true});
 }
 module.exports = DbMigration;

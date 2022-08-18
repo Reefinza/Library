@@ -39,7 +39,7 @@ module.exports = (db) => {
         indexes: [
             {
                 unique: true,
-                fields: ['title','author', 'publisher', 'publicationYearDate']
+                fields: ['title','author', 'publisher', 'publication_year_date']
             }
         ]
     });

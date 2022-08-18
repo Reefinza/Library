@@ -1,6 +1,6 @@
 const User = require('../model/user.model');
 const Book = require('../model/book.model');
-const BookRequest = require('../model/book_request.model');
+const BookRequest = require('../model/books_request.model');
 const Category = require('../model/book_category.model');
 const Role = require('../model/role.model')
 
@@ -9,8 +9,8 @@ const Role = require('../model/role.model')
 
 module.exports = (infraManager) => {
 
-    const {intDb } = infraManager();
-    const db = intDb();
+    const {initDb } = infraManager;
+    const db = initDb();
 
     const user = User(db);
     const book = Book(db);
@@ -19,13 +19,13 @@ module.exports = (infraManager) => {
     const role = Role(db)
 
     
-
+    
     role.hasMany(user);
     user.belongsTo(user)
     user.hasMany(bookRequest);
     bookRequest.belongsTo(user);
-
-    category.hashMany(book);
+    
+    category.hasMany(book);
     book.belongsTo(category);
 
 
