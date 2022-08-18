@@ -1,25 +1,15 @@
-const USER = "user";
-
+const { DataTypes } = require("sequelize");
+const ROLE = "role";
 module.exports = (db) => {
-  const { sequelize, DataTypes } = db;
-
-  return sequelize.define(
-    MST_USER,
+  return db.define(
+    MST_ADDRESS,
     {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      username: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-      },
-      email: {
+      name: {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
