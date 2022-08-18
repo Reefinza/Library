@@ -27,7 +27,7 @@ module.exports = (bookRequestService) => {
 
     const findById = async (req, res) => {
         try {
-            const { id } = req.params;
+            const {id} = req.user.id;
             const bookRequest = await findBookRequestById(id);
             res.json(Response().successMessage(res.statusCode, 'SUCCESS', bookRequest))
         } catch (err) {

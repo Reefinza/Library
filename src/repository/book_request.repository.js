@@ -33,11 +33,18 @@ module.exports = (dbModel) => { //bookRequestRepository()
         }
     }
 
-    const getById = async (id) => {
+    const getById = async (id, page, size, sortBy = 'created_at', sortType = 'desc') => {
         try {
-            const customer = await customer.findByPk(id);
-            if (!customer) return `Request with ID ${id} not found!`;
-            return customer;
+            const offset = size * ( page - 1);
+            const { count, rows } = await bookRequest.findAndCountAll({
+                where: { userId : id },
+                offset: offset,
+                limit: size,
+                order: [
+                    [sortBy, sortType]
+                ],
+            })
+            return { count, rows }
         } catch (err) {
             return err.message
         }
