@@ -1,4 +1,3 @@
-const { DataTypes } = require("sequelize");
 const BOOKS_REQUEST = 'book_request';
 module.exports = (db) => {
     return db.define(BOOKS_REQUEST, {
