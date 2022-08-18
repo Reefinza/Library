@@ -1,10 +1,9 @@
-
 module.exports = (dbModel) => { //bookRequestRepository()
 
-    const {customer,Op} = dbModel;
+    const {bookRequest,Op} = dbModel;
     const create = async (payload) => {
         try {
-            return await customer.create(payload)
+            return await bookRequest.create(payload)
         } catch (err) {
             return err.message
         }
@@ -13,13 +12,13 @@ module.exports = (dbModel) => { //bookRequestRepository()
     const list = async (keyword = '', page, size, sortBy = 'created_at', sortType = 'desc') => {
         try {
             const offset = size * ( page - 1);
-            const { count, rows } = await customer.findAndCountAll({
+            const { count, rows } = await bookRequest.findAndCountAll({
                 where: {
                     [Op.or] : [
-                        { name: { [Op.iLike] : `%${keyword}%` } },
-                        { address: { [Op.iLike] : `%${keyword}%` } },
-                        { phone: { [Op.iLike] : `%${keyword}%` } },
-                        { email: { [Op.iLike] : `%${keyword}%` } },
+                        { title: { [Op.iLike] : `%${keyword}%` } },
+                        { author: { [Op.iLike] : `%${keyword}%` } },
+                        { publicationYearDate: `${keyword}` },
+                        { status: `${keyword}` },
                     ]
                 },
                 offset: offset,
@@ -37,7 +36,7 @@ module.exports = (dbModel) => { //bookRequestRepository()
     const getById = async (id) => {
         try {
             const customer = await customer.findByPk(id);
-            if (!customer) return `Customer with value ID ${id} not found!`;
+            if (!customer) return `Request with ID ${id} not found!`;
             return customer;
         } catch (err) {
             return err.message
@@ -46,9 +45,9 @@ module.exports = (dbModel) => { //bookRequestRepository()
 
     const remove = async (id) => {
         try {
-            const customer = await customer.findByPk(id);
-            if (!customer) return `Customer with value ID ${id} not found!`;
-            return await customer.destroy({ where: { id: id }});
+            const bookRequest = await bookRequest.findByPk(id);
+            if (!bookRequest) return `Book request ID ${id} not found!`;
+            return await bookRequest.destroy({ where: { id: id }});
         } catch (err) {
             return err.message
         }
@@ -56,9 +55,9 @@ module.exports = (dbModel) => { //bookRequestRepository()
 
     const update = async (payload) => {
         try {
-            const customer = await customer.findByPk(payload.id);
-            if (!customer) return `Customer with value ID ${payload.id} not found!`;
-            return await customer.update(payload, {
+            const bookRequest = await bookRequest.findByPk(payload.id);
+            if (!bookRequest) return `Book Request ID ${payload.id} not found!`;
+            return await bookRequest.update(payload, {
                 where: { id: payload.id }
             });
         } catch (err) {
