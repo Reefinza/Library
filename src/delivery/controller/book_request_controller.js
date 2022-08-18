@@ -27,9 +27,13 @@ module.exports = (bookRequestService) => {
 
     const findById = async (req, res) => {
         try {
-            const {id} = req.user.id;
-            const bookRequest = await findBookRequestById(id);
-            res.json(Response().successMessage(res.statusCode, 'SUCCESS', bookRequest))
+            const { id } = req.user.id;
+            const { page, size, sortBy, sortType } = req.query
+            const { count, rows } = await findBookRequestById(id, page, size, sortBy, sortType);
+            res.json(Response().pagination(
+                res.statusCode, 'SUCCESS', rows,
+                keyword, page, count, size, sortBy, sortType
+            ));
         } catch (err) {
             res.status(400).json(Response().errorMessage(res.statusCode, err.message))
         }
