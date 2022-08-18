@@ -15,17 +15,9 @@ module.exports = (db) => {
             type: DataTypes.STRING(50),
             allowNull: false
         },
-        userId: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         status: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
-        },
-        bookId: {
-            type: DataTypes.INTEGER,
-            defaultValue: null
         }
     }, {
         freezeTableName: true,
