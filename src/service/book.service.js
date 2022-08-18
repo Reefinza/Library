@@ -1,5 +1,5 @@
-module.exports = (customerRepo) => {
-    const { create, list, getById, remove, update } = customerRepo();
+module.exports = (bookRepo) => {
+    const { create, list, getById, remove, update } = bookRepo();
     const addNewBook = async (payload) => {
         try {
             return await create(payload);
