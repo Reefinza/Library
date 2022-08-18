@@ -1,6 +1,8 @@
 const BOOKS_REQUEST = 'book_request';
 module.exports = (db) => {
-    return db.define(BOOKS_REQUEST, {
+    const { sequelize, DataTypes } = db;
+
+    return sequelize.define(BOOKS_REQUEST, {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -12,6 +14,10 @@ module.exports = (db) => {
         },
         author: {
             type: DataTypes.STRING(50),
+            allowNull: false
+        },
+        publicationYearDate: {
+            type: DataTypes.DATE,
             allowNull: false
         },
         status: {

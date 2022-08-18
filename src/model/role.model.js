@@ -1,25 +1,16 @@
-const USER = "user";
 
+const ROLE = "role";
 module.exports = (db) => {
   const { sequelize, DataTypes } = db;
-
   return sequelize.define(
-    USER,
+    ROLE,
     {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      username: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-      },
-      email: {
+      name: {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
@@ -28,12 +19,6 @@ module.exports = (db) => {
       freezeTableName: true,
       underscored: true,
       paranoid: true,
-      indexes: [
-        {
-          unique: true,
-          fields: ["email"],
-        },
-      ],
     }
   );
 };
