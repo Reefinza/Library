@@ -4,7 +4,7 @@ module.exports = (db) => {
   const { sequelize, DataTypes } = db;
 
   return sequelize.define(
-    MST_USER,
+    USER,
     {
       id: {
         type: DataTypes.INTEGER,

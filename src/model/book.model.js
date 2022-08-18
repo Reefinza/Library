@@ -27,7 +27,7 @@ module.exports = (db) => {
             type: DataTypes.DATE,
             allowNull: false
         },
-        ISBN: {
+        isbn: {
             type: DataTypes.STRING(50),
             allowNull: false,
             unique:true

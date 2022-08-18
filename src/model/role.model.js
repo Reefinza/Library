@@ -1,8 +1,9 @@
-const { DataTypes } = require("sequelize");
+
 const ROLE = "role";
 module.exports = (db) => {
-  return db.define(
-    MST_ADDRESS,
+  const { sequelize, DataTypes } = db;
+  return sequelize.define(
+    ROLE,
     {
       id: {
         type: DataTypes.INTEGER,
