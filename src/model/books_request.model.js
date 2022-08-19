@@ -1,4 +1,3 @@
-
 const BOOKS_REQUEST = 'book_request';
 module.exports = (db) => {
     const { sequelize, DataTypes } = db;
