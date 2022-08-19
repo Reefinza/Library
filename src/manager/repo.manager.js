@@ -1,6 +1,6 @@
 const UserRepository = require("../repository/user.repository");
 const BookRepository = require("../repository/book.repository");
-// const BookRequestRepository = require("../repository/book_request.repository");
+const BookRequestRepository = require("../repository/book_request.repository");
 
 module.exports = (modelManager) => {
   const dbModel = modelManager();
@@ -14,13 +14,13 @@ module.exports = (modelManager) => {
     return () => BookRepository(dbModel);
   };
 
-  //   BookRequestRepo = () => {
-  //     return () => BookRequestRepository(dbModel);
-  //   };
+  const bookRequestRepo = () => {
+      return () => BookRequestRepository(dbModel);
+    };
 
   return {
     userRepo,
     bookRepo,
-    // BookRequestRepo
+    bookRequestRepo
   };
 };

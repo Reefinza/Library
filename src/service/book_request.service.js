@@ -4,7 +4,7 @@ module.exports = (bookRequestRepo) => {
         try {
             return await create(payload);
         } catch (err) {
-            return err.message
+            throw err
         }
     }
 
@@ -16,7 +16,7 @@ module.exports = (bookRequestRepo) => {
             const { count, rows } = await list(keyword, page, size, sortBy, sortType);
             return { count, rows }
         } catch (err) {
-            return err.message
+            throw err
         }
     }
 
@@ -24,7 +24,7 @@ module.exports = (bookRequestRepo) => {
         try {
             return await getById(id);
         } catch (err) {
-            return err.message
+            throw err
         }
     }
 
@@ -32,7 +32,7 @@ module.exports = (bookRequestRepo) => {
         try {
             return await remove(id);
         } catch (err) {
-            return err.message
+            throw err
         }
     }
 
@@ -40,7 +40,7 @@ module.exports = (bookRequestRepo) => {
         try {
             return await update(payload);
         } catch (err) {
-            return err.message
+            throw err
         }
     }
 

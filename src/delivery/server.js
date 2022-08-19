@@ -10,10 +10,12 @@ const ServiceManager = require("../manager/service.manager");
 // Controller
 const UserController = require("../delivery/controller/user.controler");
 const BookController = require("../delivery/controller/book.controller");
+const BookRequestController = require("../delivery/controller/book_request.controller");
 
 // Route
 const UserRoute = require("../delivery/route/user.route");
 const BookRoute = require("../delivery/route/book.route");
+const BookRequestRoute = require("../delivery/route/book_request.route");
 
 const DbMigration = require("../config/db_migratioin");
 const Config = require("../config/config");
@@ -28,7 +30,7 @@ module.exports = () => {
   const serviceManager = () => ServiceManager(repoManager);
   const DbSync = modelManager();
 
-  const { bookService, userService } = serviceManager();
+  const { bookService, userService, bookRequestService } = serviceManager();
 
   const initUserRoute = () => {
     const userController = () => UserController(userService());
@@ -38,10 +40,14 @@ module.exports = () => {
     const bookController = () => BookController(bookService());
     return BookRoute(bookController);
   };
+  const initBookRequestRoute = () => {
+    const bookRequestController = () => BookRequestController(bookRequestService());
+    return BookRequestRoute(bookRequestController);
+  };
 
   const initController = () => {
     app.use(jsonMiddleware);
-    app.use(AppRoute(initBookRoute(), initUserRoute()));
+    app.use(AppRoute(initBookRoute(), initUserRoute(), initBookRequestRoute()));
   };
 
   const run = () => {

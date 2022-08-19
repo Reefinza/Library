@@ -1,12 +1,19 @@
+const Error = require('../utils/handlerError');
 module.exports = (dbModel) => { //bookRequestRepository()
 
     const {bookRequest,Op} = dbModel;
     const create = async (payload) => {
         try {
-            return await bookRequest.create(payload)
-        } catch (err) {
-            return err.message
-        }
+            const addRes = await bookRequest.create(payload)
+            if (addRes.dataValues) {
+                return addRes.dataValues;
+            }else{
+                throw Error(400, 'Failed to create request');
+            }
+            } catch (err) {
+                const message = err.original.detail || err.message;
+                throw Error(err.statusCode, message);
+            }
     }
 
     const list = async (keyword = '', page, size, sortBy = 'created_at', sortType = 'desc') => {
@@ -18,7 +25,7 @@ module.exports = (dbModel) => { //bookRequestRepository()
                         { title: { [Op.iLike] : `%${keyword}%` } },
                         { author: { [Op.iLike] : `%${keyword}%` } },
                         { publicationYearDate: `${keyword}` },
-                        { status: `${keyword}` },
+                //        { status: `${status}`},
                     ]
                 },
                 offset: offset,
@@ -27,9 +34,13 @@ module.exports = (dbModel) => { //bookRequestRepository()
                     [sortBy, sortType]
                 ],
             })
-            return { count, rows }
+            if (count > 0) {
+                return { count, rows };
+            }else{
+                throw Error(404, 'No request found');
+            }
         } catch (err) {
-            return err.message
+            throw Error(err.statusCode, err.message);
         }
     }
 
@@ -44,31 +55,44 @@ module.exports = (dbModel) => { //bookRequestRepository()
                     [sortBy, sortType]
                 ],
             })
-            return { count, rows }
+            if (count > 0) {
+                return { count, rows };
+            }else{
+                throw Error(404, 'No request not found');
+            }
         } catch (err) {
-            return err.message
+            throw Error(err.statusCode, err.message);
         }
     }
 
     const remove = async (id) => {
         try {
-            const bookRequest = await bookRequest.findByPk(id);
-            if (!bookRequest) return `Book request ID ${id} not found!`;
-            return await bookRequest.destroy({ where: { id: id }});
-        } catch (err) {
-            return err.message
-        }
-    }
+            const res = await bookRequest.destroy({ where: { id: id } });
+         
+            if (res === 0){
+              throw Error(404, `Request with ID ${id} not found`);
+            }else{
+              return `Request with ID ${id} has been deleted!`;
+            }
+          } catch (err) {
+              throw Error(err.statusCode, err.message);
+          }
+      }
 
     const update = async (payload) => {
         try {
-            const bookRequest = await bookRequest.findByPk(payload.id);
-            if (!bookRequest) return `Book Request ID ${payload.id} not found!`;
-            return await bookRequest.update(payload, {
+            const updateRequest = await bookRequest.update(payload, {
                 where: { id: payload.id }
             });
+
+            console.log(updateRequest);
+            if(updateRequest[0] === 0){
+                throw Error(404, `Request with ID ${payload.id} not found`);
+            }else{
+                return `Request with ID ${payload.id} has been updated!`;
+            }
         } catch (err) {
-            return err.message
+            throw Error(err.statusCode, err.message);
         }
     }
 
