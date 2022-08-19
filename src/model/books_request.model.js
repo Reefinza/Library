@@ -17,7 +17,7 @@ module.exports = (db) => {
             allowNull: false
         },
         publicationYearDate: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING(4),
             allowNull: false
         },
         status: {
@@ -27,6 +27,12 @@ module.exports = (db) => {
     }, {
         freezeTableName: true,
         underscored: true,
-        paranoid: true
+        paranoid: true,
+        indexes: [
+            {
+                unique: true,
+                fields: ['title','author', 'publication_year_date', 'user_id']
+            }
+        ]
     })
 }

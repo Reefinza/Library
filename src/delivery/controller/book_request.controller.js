@@ -8,7 +8,7 @@ module.exports = (bookRequestService) => {
             const bookRequest = await createNewBookRequest(payload);
             res.json(Response().successMessage(res.statusCode, 'SUCCESS', bookRequest))
         } catch (err) {
-            res.status(400).json(Response().errorMessage(res.statusCode, err.message))
+            res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
 
@@ -21,7 +21,7 @@ module.exports = (bookRequestService) => {
                 keyword, page, count, size, sortBy, sortType
             ));
         } catch (err) {
-            res.status(400).json(Response().errorMessage(res.statusCode, err.message))
+            res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
 
@@ -35,7 +35,7 @@ module.exports = (bookRequestService) => {
                 keyword, page, count, size, sortBy, sortType
             ));
         } catch (err) {
-            res.status(400).json(Response().errorMessage(res.statusCode, err.message))
+            res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
 
@@ -45,7 +45,8 @@ module.exports = (bookRequestService) => {
             const bookRequest = await updateBookRequest(payload);
             res.json(Response().successMessage(res.statusCode, 'SUCCESS', bookRequest))
         } catch (err) {
-            res.status(400).json(Response().errorMessage(res.statusCode, err.message))
+            console.log(err)
+            res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
 
@@ -55,7 +56,7 @@ module.exports = (bookRequestService) => {
             const bookRequest = await removeBookRequest(id);
             res.json(Response().successMessage(res.statusCode, 'SUCCESS', bookRequest))
         } catch (err) {
-            res.status(400).json(Response().errorMessage(res.statusCode, err.message))
+            res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
     return {
