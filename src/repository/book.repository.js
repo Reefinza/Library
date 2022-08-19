@@ -6,6 +6,7 @@ module.exports = (modelManager) => { // CustomerRepository()
     const create = async (payload) => {
         try {
             const addRes = await book.create(payload);
+            
         if (addRes.dataValues) {
             return addRes.dataValues;
         }else{
