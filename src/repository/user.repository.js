@@ -1,4 +1,4 @@
-const { passwordUtil } = require("../utils/password.utils");
+const { passwordUtil, passwordCompare } = require("../utils/password.utils");
 const Error = require("../utils/handlerError");
 
 module.exports = (dbModel) => {
@@ -69,19 +69,23 @@ module.exports = (dbModel) => {
 
   const getUserByUsernamePassword = async (username, password) => {
     try {
-      //   const result = await pool.query(UserQuery().SELECT_USER, [username]);
       const result = await user.findAll({
         where: { username: username },
       });
-      if (result.rowCount === 0) {
+      if (result.length === 0) {
         return null;
       }
-      const validPassword = await passwordCompare(password, result.rows[0].password);
-
+      const userData = result[0].dataValues
+      const validPassword = await passwordCompare(password, userData.password);
       if (!validPassword) {
         return null;
       }
-      return await getById(result.rows[0].id);
+      return {
+        id: userData.id,
+        username: userData.username,
+        password: userData.password,
+        roleId : userData.roleId
+      }
     } catch (err) {
       throw err.message;
     }

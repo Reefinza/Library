@@ -1,11 +1,11 @@
-module.exports = (req, res, next) => {
+module.exports = () => {
 
-    const isAdmin = ()=>{
+    const isAdmin = (req, res, next)=>{
         try {
-            const role = req.role_id
+            const role = req.user.roleId
             if (role == 2) {
                 return res.status(401).json({
-                    "message": "Unauthorized"
+                    "message": "Forbiden"
                 })
             }
             next();
