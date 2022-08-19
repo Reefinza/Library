@@ -2,11 +2,21 @@ const Error = require('../utils/handlerError');
 
 module.exports = (modelManager) => { // CustomerRepository()
 
-    const { book, Op } = modelManager;
+    const { book, bookRequest, Op } = modelManager;
     const create = async (payload) => {
         try {
             const addRes = await book.create(payload);
-            
+            // await bookRequest.update({
+            //     status: true
+            // }, {
+            //     where: {
+            //         [Op.and]: [
+            //             { title: { [Op.iLike]: payload.title } },
+            //             { author: { [Op.iLike]: payload.author } },
+            //             { publicationYearDate: { [Op.iLike]: payload.publicationYearDate } },
+            //         ]
+            //         }
+            // });
         if (addRes.dataValues) {
             return addRes.dataValues;
         }else{
