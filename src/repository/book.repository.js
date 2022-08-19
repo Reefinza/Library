@@ -87,9 +87,8 @@ module.exports = (modelManager) => { // CustomerRepository()
             }else{
                 return `book with value ID ${payload.id} has been updated!`;
             }
-        } catch (err) {
-            const message = err.original.detail || err.message;
-            throw Error(err.statusCode, message);
+        } catch (err) {            
+            throw Error(err.statusCode, err.message);
         }
     }
 
