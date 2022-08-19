@@ -1,5 +1,5 @@
 module.exports = (bookRequestRepo) => {
-    const {  create, list, getById, remove, update } = bookRequestRepo();
+    const { create, list, getById, remove, update } = bookRequestRepo();
     const createNewBookRequest = async (payload) => {
         try {
             return await create(payload);
@@ -20,14 +20,16 @@ module.exports = (bookRequestRepo) => {
         }
     }
 
-    const findBookRequestById = async (id) => {
+    const findBookRequestById = async (id, page, size, sortBy, sortType) => {
         try {
-            return await getById(id);
+            if (isNaN(page) || isNaN(size)) {
+                page = 1, size = 10
+            }
+            return await getById(id, page, size, sortBy, sortType);
         } catch (err) {
             throw err
         }
     }
-
     const removeBookRequest = async (id) => {
         try {
             return await remove(id);
