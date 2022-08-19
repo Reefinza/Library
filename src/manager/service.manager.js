@@ -1,6 +1,7 @@
 const BookService = require("../service/book.service");
 const UserService = require("../service/user.service");
 const BookRequestService = require('../service/book_request.service');
+const AuthService = require('../service/auth.service');
 module.exports = (repoManager) => {
   const { bookRepo, userRepo, bookRequestRepo } = repoManager();
   // Semua repo
@@ -14,10 +15,14 @@ module.exports = (repoManager) => {
   const bookRequestService = () => {
       return () => BookRequestService(bookRequestRepo());
   }
+  const authService = () => {
+    return () => AuthService(userService());
+  }
 
   return {
     bookService,
     userService,
-    bookRequestService
+    bookRequestService,
+    authService
   };
 };

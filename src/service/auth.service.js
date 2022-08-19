@@ -2,11 +2,11 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
 module.exports = (userService) => {
-    const {findUser} = userService();
+    const { findUserByUsernamePassword } = userService();
     const login = async (payload) => {
 
         const user =
-            await findUser(
+            await findUserByUsernamePassword(
                 payload.username,
                 payload.password
             );

@@ -32,7 +32,7 @@ module.exports = () => {
   const serviceManager = () => ServiceManager(repoManager);
   const DbSync = modelManager();
 
-  const { bookService, userService, bookRequestService,  } = serviceManager();
+  const { bookService, userService, bookRequestService,  authService} = serviceManager();
 
   const initUserRoute = () => {
     const userController = () => UserController(userService());
