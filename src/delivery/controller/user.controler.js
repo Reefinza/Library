@@ -1,3 +1,5 @@
+const Response = require("../../utils/response");
+
 module.exports = (userService) => {
   const { registerNewUser, findAllUser } = userService;
 
@@ -6,7 +8,7 @@ module.exports = (userService) => {
       const payload = req.body;
       const user = registerNewUser(payload);
       res.json(Response().successMessage(res.statusCode, "SUCCESS", user));
-    } catch (error) {
+    } catch (err) {
       res.status(400).json(Response().errorMessage(res.statusCode, err.message));
     }
   };
@@ -15,7 +17,7 @@ module.exports = (userService) => {
     try {
       const users = await findAllUser();
       res.json(Response().successMessage(res.statusCode, "SUCCESS", users));
-    } catch (error) {
+    } catch (err) {
       res.status(400).json(Response().errorMessage(res.statusCode, err.message));
     }
   };

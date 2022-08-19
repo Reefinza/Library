@@ -1,23 +1,23 @@
-const BookService = require('../service/book.service');
-// const UserService = require('../service/user.service');
+const BookService = require("../service/book.service");
+const UserService = require("../service/user.service");
 // const BookRequestService = require('../service/book_request.service');
 module.exports = (repoManager) => {
-    const { bookRepo, userRepo,bookRequestRepo } = repoManager();
-    // Semua repo
-    const bookService = () => {
-        return () => BookService(bookRepo());
-    }
+  const { bookRepo, userRepo, bookRequestRepo } = repoManager();
+  // Semua repo
+  const bookService = () => {
+    return () => BookService(bookRepo());
+  };
 
-    // const userService = () => {
-    //     return () => UserService(userRepo());
-    // }
-    // const bookRequestService = () => {
-    //     return () => BookRequestService(bookRequestRepo());
-    // }
+  const userService = () => {
+    return () => UserService(userRepo());
+  };
+  // const bookRequestService = () => {
+  //     return () => BookRequestService(bookRequestRepo());
+  // }
 
-    return {
-        bookService, 
-        // userService,
-        // bookRequestService
-    }
-}
+  return {
+    bookService,
+    userService,
+    // bookRequestService
+  };
+};

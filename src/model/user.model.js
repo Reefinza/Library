@@ -22,18 +22,13 @@ module.exports = (db) => {
       email: {
         type: DataTypes.STRING(50),
         allowNull: false,
+        unique: true,
       },
     },
     {
       freezeTableName: true,
       underscored: true,
       paranoid: true,
-      indexes: [
-        {
-          unique: true,
-          fields: ["email"],
-        },
-      ],
     }
   );
 };

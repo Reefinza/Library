@@ -11,7 +11,7 @@ module.exports = (dbModel) => {
       });
       return result;
     } catch (err) {
-      return err.message;
+      throw Error(err.statusCode, message);
     }
   };
 
@@ -22,8 +22,8 @@ module.exports = (dbModel) => {
           exclude: ["password"],
         },
       });
-    } catch (error) {
-      return error.message;
+    } catch (err) {
+      throw Error(err.statusCode, message);
     }
   };
 
