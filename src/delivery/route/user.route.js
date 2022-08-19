@@ -3,6 +3,7 @@ const router = express.Router();
 module.exports = (userController) => {
   const { create, list } = userController();
   router.post("/", create);
+  router.get("/register", create);
   router.get("/", list);
   return router;
 };

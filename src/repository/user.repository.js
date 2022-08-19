@@ -1,3 +1,4 @@
+const {passwordUtil} = require("../utils/password.utils");
 module.exports = (dbModel) => {
   const { user, role } = dbModel;
   const create = async (payload) => {
@@ -7,7 +8,7 @@ module.exports = (dbModel) => {
         username: payload.username,
         password: password,
         email: payload.email,
-        role_id: 2,
+        roleId: 2
       });
       return result;
     } catch (err) {

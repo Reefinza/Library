@@ -21,7 +21,7 @@ module.exports = (infraManager) => {
     
     
     role.hasMany(user);
-    user.belongsTo(user)
+    user.belongsTo(role);
     user.hasMany(bookRequest);
     bookRequest.belongsTo(user);
     
@@ -30,7 +30,7 @@ module.exports = (infraManager) => {
 
 
     const modelManager = {
-        squelize: db.sequelize,
+        sequelize: db.sequelize,
         Op : db.Op,
         book,
         user,

@@ -16,7 +16,7 @@ module.exports = (db) => {
         allowNull: false,
       },
       password: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(),
         allowNull: false,
       },
       email: {
