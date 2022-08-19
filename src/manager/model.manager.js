@@ -9,7 +9,7 @@ const Role = require('../model/role.model')
 
 module.exports = (infraManager) => {
 
-    const {initDb } = infraManager;
+    const {initDb } = infraManager();
     const db = initDb();
 
     const user = User(db);
