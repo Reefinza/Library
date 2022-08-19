@@ -1,5 +1,5 @@
 module.exports = (userRepo) => {
-  const { create, list, getById, update } = userRepo();
+  const { create, list, getById, update, getUserByUsernamePassword } = userRepo();
 
   const registerNewUser = async (payload) => {
     try {
@@ -32,10 +32,19 @@ module.exports = (userRepo) => {
       throw err;
     }
   };
+  const findUserByUsernamePassword = async (username, password) => {
+    try {
+      return await getUserByUsernamePassword(username, password);
+    } catch (err) {
+      throw err.message;
+    }
+  };
+
   return {
     registerNewUser,
     findAllUser,
     findUserById,
     updateUser,
+    findUserByUsernamePassword,
   };
 };

@@ -67,10 +67,31 @@ module.exports = (dbModel) => {
     }
   };
 
+  const getUserByUsernamePassword = async (username, password) => {
+    try {
+      //   const result = await pool.query(UserQuery().SELECT_USER, [username]);
+      const result = await user.findAll({
+        where: { username: username },
+      });
+      if (result.rowCount === 0) {
+        return null;
+      }
+      const validPassword = await passwordCompare(password, result.rows[0].password);
+
+      if (!validPassword) {
+        return null;
+      }
+      return await getById(result.rows[0].id);
+    } catch (err) {
+      throw err.message;
+    }
+  };
+
   return {
     create,
     list,
     getById,
     update,
+    getUserByUsernamePassword,
   };
 };
