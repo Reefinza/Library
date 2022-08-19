@@ -14,13 +14,13 @@ module.exports = (modelManager) => {
     return () => BookRepository(dbModel);
   };
 
-  const BookRequestRepo = () => {
+  const bookRequestRepo = () => {
       return () => BookRequestRepository(dbModel);
     };
 
   return {
     userRepo,
     bookRepo,
-    BookRequestRepo
+    bookRequestRepo
   };
 };

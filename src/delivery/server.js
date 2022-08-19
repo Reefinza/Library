@@ -10,12 +10,12 @@ const ServiceManager = require("../manager/service.manager");
 // Controller
 const UserController = require("../delivery/controller/user.controler");
 const BookController = require("../delivery/controller/book.controller");
-const BookController = require("../delivery/controller/book_request.controller");
+const BookRequestController = require("../delivery/controller/book_request.controller");
 
 // Route
 const UserRoute = require("../delivery/route/user.route");
 const BookRoute = require("../delivery/route/book.route");
-const BookRoute = require("../delivery/route/book_request.route");
+const BookRequestRoute = require("../delivery/route/book_request.route");
 
 const DbMigration = require("../config/db_migratioin");
 const Config = require("../config/config");
