@@ -6,7 +6,7 @@ module.exports = async (bookModel) => {
         publisher: "HarperCollins",
         publicationYearDate: "1988-01-01",
         isbn: "9780062315007",
-        booksCategoryId: 1
+        bookCategoryId: 1
     },
         {
         title: "The Da Vinci Code",
@@ -14,7 +14,7 @@ module.exports = async (bookModel) => {
         publisher: "Doubleday",
         publicationYearDate: "2003-01-01",
         isbn: "9780385534246",
-        booksCategoryId: 2
+        bookCategoryId: 2
     },
      {
         title: "Harry Potter and the Philosopher's Stone",
@@ -22,7 +22,7 @@ module.exports = async (bookModel) => {
         publisher: "Bloomsbury",
         publicationYearDate: "1997-01-01",
         isbn: "9780747532743",
-        booksCategoryId: 3
+        bookCategoryId: 3
     },
     {
         title: "The Lord of the Rings",
@@ -30,7 +30,7 @@ module.exports = async (bookModel) => {
         publisher: "Allen & Unwin",
         publicationYearDate: "1954-01-01",
         isbn: "9780006544736",
-        booksCategoryId: 4
+        bookCategoryId: 4
 
     },
     {
@@ -39,7 +39,7 @@ module.exports = async (bookModel) => {
         publisher: "Geoffrey Bles",
         publicationYearDate: "1950-01-01",
         isbn: "97800065447361",
-        booksCategoryId: 5
+        bookCategoryId: 5
     }
     ]);
 }
