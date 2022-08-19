@@ -8,12 +8,12 @@ module.exports = (bookRequestRepo) => {
         }
     }
 
-    const findAllBookRequest = async (keyword, page, size, sortBy, sortType) => {
+    const findAllBookRequest = async (keyword, status, page, size, sortBy, sortType) => {
         try {
             if (isNaN(page) || isNaN(size)) {
                 page = 1, size = 10
             }
-            const { count, rows } = await list(keyword, page, size, sortBy, sortType);
+            const { count, rows } = await list(keyword, status, page, size, sortBy, sortType);
             return { count, rows }
         } catch (err) {
             throw err
@@ -25,6 +25,7 @@ module.exports = (bookRequestRepo) => {
             if (isNaN(page) || isNaN(size)) {
                 page = 1, size = 10
             }
+            console.log(status)
             return await getById(id, page, size, sortBy, sortType);
         } catch (err) {
             throw err

@@ -16,17 +16,27 @@ module.exports = (dbModel) => { //bookRequestRepository()
         }
     }
 
-    const list = async (keyword = '', page, size, sortBy = 'created_at', sortType = 'desc') => {
+    const list = async (keyword = '', status, page, size, sortBy = 'created_at', sortType = 'desc') => {
         try {
+            let clause ='';
             const offset = size * (page - 1);
-            const { count, rows } = await bookRequest.findAndCountAll({
-                where: {
+            if(!status){
+                clause = {
                     [Op.or]: [
                         { title: { [Op.iLike]: `%${keyword}%` } },
                         { author: { [Op.iLike]: `%${keyword}%` } },
                         { publicationYearDate: `${keyword}` },
                     ]
-                },
+                }
+            } else if (status=='true' || status=='false'){
+                    clause = {
+                        status : `${status}`
+                    }
+            } else {
+                throw Error(400, `Status must be true or false`);
+            }
+            const { count, rows } = await bookRequest.findAndCountAll({
+                where: clause,
                 offset: offset,
                 limit: size,
                 order: [

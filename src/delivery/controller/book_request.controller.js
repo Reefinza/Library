@@ -14,11 +14,11 @@ module.exports = (bookRequestService) => {
 
     const list = async (req, res) => {
         try {
-            const { keyword, page, size, sortBy, sortType } = req.query
-            const { count, rows } = await findAllBookRequest(keyword, page, size, sortBy, sortType);
+            const { keyword, status, page, size, sortBy, sortType } = req.query
+            const { count, rows } = await findAllBookRequest(keyword, status, page, size, sortBy, sortType);
             res.json(Response().pagination(
                 res.statusCode, 'SUCCESS', rows,
-                keyword, page, count, size, sortBy, sortType
+                keyword, status, page, count, size, sortBy, sortType
             ));
         } catch (err) {
             res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
