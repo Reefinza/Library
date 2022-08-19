@@ -1,4 +1,4 @@
-const BOOKS_CATEGORY = 'booksCategory';
+const BOOKS_CATEGORY = 'book_category';
 module.exports = (db) => {
     const { sequelize, DataTypes } = db;
     return sequelize.define(BOOKS_CATEGORY, {

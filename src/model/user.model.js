@@ -16,24 +16,19 @@ module.exports = (db) => {
         allowNull: false,
       },
       password: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(),
         allowNull: false,
       },
       email: {
         type: DataTypes.STRING(50),
         allowNull: false,
+        unique: true,
       },
     },
     {
       freezeTableName: true,
       underscored: true,
       paranoid: true,
-      indexes: [
-        {
-          unique: true,
-          fields: ["email"],
-        },
-      ],
     }
   );
 };

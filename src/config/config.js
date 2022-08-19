@@ -10,5 +10,7 @@ module.exports = Config = () => {
         dbPassword: process.env.DB_PASSWORD,
         dbName: process.env.DB_NAME,
         dbDriver: process.env.DB_DRIVER,
+        TokenSecret: process.env.TOKEN_SECRET,
+        TokenExpiration: process.env.TOKEN_EXPIRATION
     }
 }
