@@ -6,7 +6,7 @@ module.exports = (bookRequestController) => {
     router.post('/', create);
     router.get('/', roleMiddleware().isAdmin, list);
     router.get('/check/', findById);
-    router.put('/', update);
+    router.put('/', roleMiddleware().isAdmin, update);
     router.delete('/:id', roleMiddleware().isAdmin, remove);
     return router;
 }
