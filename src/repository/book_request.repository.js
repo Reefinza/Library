@@ -1,7 +1,7 @@
 const Error = require('../utils/handlerError');
 module.exports = (dbModel) => { //bookRequestRepository()
 
-    const { bookRequest, Op } = dbModel;
+    const { user, bookRequest, Op } = dbModel;
     const create = async (payload) => {
         try {
             const addRes = await bookRequest.create(payload)
@@ -25,7 +25,6 @@ module.exports = (dbModel) => { //bookRequestRepository()
                         { title: { [Op.iLike]: `%${keyword}%` } },
                         { author: { [Op.iLike]: `%${keyword}%` } },
                         { publicationYearDate: `${keyword}` },
-                        //        { status: `${status}`},
                     ]
                 },
                 offset: offset,
@@ -33,6 +32,13 @@ module.exports = (dbModel) => { //bookRequestRepository()
                 order: [
                     [sortBy, sortType]
                 ],
+                include: {
+                    model: user,
+                    attributes: ['username']
+                },
+                attributes: {
+                    exclude: ['deletedAt','userId']
+                },
             })
             if (count > 0) {
                 return { count, rows };
@@ -54,6 +60,13 @@ module.exports = (dbModel) => { //bookRequestRepository()
                 order: [
                     [sortBy, sortType]
                 ],
+                include: {
+                    model: user,
+                    attributes: ['username']
+                },
+                attributes: {
+                    exclude: ['deletedAt','userId']
+                }
             })
             if (count > 0) {
                 return { count, rows };
