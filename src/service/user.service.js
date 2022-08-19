@@ -1,11 +1,11 @@
 module.exports = (userRepo) => {
-  const { create, list } = userRepo;
+  const { create, list, getById, update } = userRepo();
 
   const registerNewUser = async (payload) => {
     try {
       return await create(payload);
     } catch (err) {
-      throw Error(err.statusCode, message);
+      throw err;
     }
   };
 
@@ -13,12 +13,29 @@ module.exports = (userRepo) => {
     try {
       return await list();
     } catch (err) {
-      throw Error(err.statusCode, message);
+      throw err;
     }
   };
 
+  const findUserById = async (id) => {
+    try {
+      return await getById(id);
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const updateUser = async (payload) => {
+    try {
+      return await update(payload);
+    } catch (err) {
+      throw err;
+    }
+  };
   return {
     registerNewUser,
     findAllUser,
+    findUserById,
+    updateUser,
   };
 };
