@@ -46,10 +46,14 @@ module.exports = () => {
     const bookRequestController = () => BookRequestController(bookRequestService());
     return BookRequestRoute(bookRequestController);
   };
+  const initAuthRoute = () => {
+    const authController = () => AuthController(authService());
+    return AuthRoute(authController);
+  }
 
   const initController = () => {
     app.use(jsonMiddleware);
-    app.use(AppRoute(initBookRoute(), initUserRoute(), initBookRequestRoute()));
+    app.use(AppRoute(initBookRoute(), initUserRoute(), initBookRequestRoute(), initAuthRoute()));
   };
 
   const run = () => {

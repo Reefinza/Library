@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const AuthRoute = authController => {
+module.exports = authController => {
     const { loginAccount } = authController();
-    router.get('/', loginAccount);
+    router.get('/login', loginAccount);
     return router;
 }
-module.exports = AuthRoute;
