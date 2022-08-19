@@ -30,7 +30,7 @@ module.exports = () => {
   const serviceManager = () => ServiceManager(repoManager);
   const DbSync = modelManager();
 
-  const { bookService, userService, boorRequestService } = serviceManager();
+  const { bookService, userService, bookRequestService } = serviceManager();
 
   const initUserRoute = () => {
     const userController = () => UserController(userService());
@@ -41,7 +41,7 @@ module.exports = () => {
     return BookRoute(bookController);
   };
   const initBookRequestRoute = () => {
-    const bookRequestController = () => BookRequestController(bookService());
+    const bookRequestController = () => BookRequestController(bookRequestService());
     return BookRequestRoute(bookRequestController);
   };
 
