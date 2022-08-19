@@ -1,10 +1,12 @@
+const Error = require('../utils/handlerError');
+
 module.exports = (bookRepo) => {
     const { create, list, getById, remove, update } = bookRepo();
     const addNewBook = async (payload) => {
         try {
             return await create(payload);
         } catch (err) {
-            return err.message
+            throw err
         }
     }
     const findAllBook = async (keyword, page, size, sortBy, sortType) => {
@@ -13,9 +15,10 @@ module.exports = (bookRepo) => {
                 page = 1, size = 10
             }
             const { count, rows } = await list(keyword, page, size, sortBy, sortType);
+            // console.log(rows);
             return { count, rows }
         } catch (err) {
-            return err.message
+            throw err
         }
     }
 
@@ -23,7 +26,7 @@ module.exports = (bookRepo) => {
         try {
             return await getById(id);
         } catch (err) {
-            return err.message
+            throw err
         }
     }
 
@@ -31,7 +34,7 @@ module.exports = (bookRepo) => {
         try {
             return await remove(id);
         } catch (err) {
-            return err.message
+            throw err
         }
     }
 
@@ -39,7 +42,7 @@ module.exports = (bookRepo) => {
         try {
             return await update(payload);
         } catch (err) {
-            return err.message
+            throw err
         }
     }
 

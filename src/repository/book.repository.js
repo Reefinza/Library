@@ -1,11 +1,19 @@
+const Error = require('../utils/handlerError');
+
 module.exports = (modelManager) => { // CustomerRepository()
 
     const { book, Op } = modelManager;
     const create = async (payload) => {
         try {
-            return await book.create(payload)
+            const addRes = await book.create(payload);
+        if (addRes.dataValues) {
+            return addRes.dataValues;
+        }else{
+            throw Error(400, 'Failed to create book');
+        }
         } catch (err) {
-            return err
+            const message = err.original.detail || err.message;
+            throw Error(err.statusCode, message);
         }
     }
 
@@ -17,7 +25,7 @@ module.exports = (modelManager) => { // CustomerRepository()
                     [Op.or]: [
                         { title: { [Op.iLike]: `%${keyword}%` } },
                         { author: { [Op.iLike]: `%${keyword}%` } },
-                        { category_id: { [Op.iLike]: `%${keyword}%` } },
+                        // { category_id: { [Op.iLike]: `%${keyword}%` } },
                         { isbn: { [Op.iLike]: `%${keyword}%` } },
                     ]
                 },
@@ -27,41 +35,61 @@ module.exports = (modelManager) => { // CustomerRepository()
                     [sortBy, sortType]
                 ],
             })
-            return { count, rows }
+            if (count > 0) {
+                return { count, rows };
+            }else{
+                throw Error(404, 'Books not found');
+            }
         } catch (err) {
-            return err.message
+            throw Error(err.statusCode, err.message);
         }
     }
 
     const getById = async (id) => {
         try {
-            const book = await book.findByPk(id);
-            if (!book) return `book with value ID ${id} not found!`;
-            return book;
+           
+            const res = await book.findByPk(id);
+            if (res){
+                 return res
+                }else{
+                    throw Error(404, `Book with id ${id} not found`);
+                };
         } catch (err) {
-            return err.message
+            throw Error(err.statusCode, err.message);
         }
     }
 
     const remove = async (id) => {
         try {
-            const book = await book.findByPk(id);
-            if (!book) return `book with value ID ${id} not found!`;
-            return await book.destroy({ where: { id: id } });
+            // const res = await book.findByPk(id);
+            // if (!res) return `book with value ID ${id} not found!`;
+         const res = await book.destroy({ where: { id: id } });
+         
+          if (res === 0){
+            throw Error(404, `Book with id ${id} not found`);
+          }else{
+            return `book with value ID ${id} has been deleted!`;
+          }
         } catch (err) {
-            return err.message
+            throw Error(err.statusCode, err.message);
         }
     }
 
     const update = async (payload) => {
         try {
-            const book = await book.findByPk(payload.id);
-            if (!book) return `book with value ID ${payload.id} not found!`;
-            return await book.update(payload, {
+         const updateBook = await book.update(payload, {
                 where: { id: payload.id }
             });
+
+            console.log(updateBook);
+            if(updateBook[0] === 0){
+                throw Error(404, `Book with id ${payload.id} not found`);
+            }else{
+                return `book with value ID ${payload.id} has been updated!`;
+            }
         } catch (err) {
-            return err.message
+            const message = err.original.detail || err.message;
+            throw Error(err.statusCode, message);
         }
     }
 

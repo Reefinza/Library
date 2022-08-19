@@ -8,7 +8,7 @@ module.exports = (bookService) => {
             const book = await addNewBook(payload);
             res.json(Response().successMessage(res.statusCode, 'SUCCESS', book))
         } catch (err) {
-            res.status(400).json(Response().errorMessage(res.statusCode, err.message))
+            res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
 
@@ -16,12 +16,13 @@ module.exports = (bookService) => {
         try {
             const { keyword, page, size, sortBy, sortType } = req.query
             const { count, rows } = await findAllBook(keyword, page, size, sortBy, sortType);
+            
             res.json(Response().pagination(
                 res.statusCode, 'SUCCESS', rows,
                 keyword, page, count, size, sortBy, sortType
             ));
         } catch (err) {
-            res.status(400).json(Response().errorMessage(res.statusCode, err.message))
+            res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
 
@@ -29,9 +30,10 @@ module.exports = (bookService) => {
         try {
             const { id } = req.params;
             const book = await findBookById(id);
+            
             res.json(Response().successMessage(res.statusCode, 'SUCCESS', book))
         } catch (err) {
-            res.status(400).json(Response().errorMessage(res.statusCode, err.message))
+            res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
 
@@ -41,7 +43,7 @@ module.exports = (bookService) => {
             const book = await updateBook(payload);
             res.json(Response().successMessage(res.statusCode, 'SUCCESS', book))
         } catch (err) {
-            res.status(400).json(Response().errorMessage(res.statusCode, err.message))
+            res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
 
@@ -51,7 +53,7 @@ module.exports = (bookService) => {
             const book = await removeBook(id);
             res.json(Response().successMessage(res.statusCode, 'SUCCESS', book))
         } catch (err) {
-            res.status(400).json(Response().errorMessage(res.statusCode, err.message))
+            res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
     return {
