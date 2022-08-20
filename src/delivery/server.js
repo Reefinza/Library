@@ -12,12 +12,14 @@ const UserController = require("../delivery/controller/user.controler");
 const BookController = require("../delivery/controller/book.controller");
 const BookRequestController = require("../delivery/controller/book_request.controller");
 const AuthController = require("../delivery/controller/auth.controller");
+const FavoriteController = require("../delivery/controller/favorite.controller");
 
 // Route
 const UserRoute = require("../delivery/route/user.route");
 const BookRoute = require("../delivery/route/book.route");
 const BookRequestRoute = require("../delivery/route/book_request.route");
 const AuthRoute = require("../delivery/route/auth.route");
+const FavoriteRoute = require("../delivery/route/favorite.route");
 
 const DbMigration = require("../config/db_migratioin");
 const Config = require("../config/config");
@@ -32,7 +34,7 @@ module.exports = () => {
   const serviceManager = () => ServiceManager(repoManager);
   const DbSync = modelManager();
 
-  const { bookService, userService, bookRequestService,  authService} = serviceManager();
+  const { bookService, userService, bookRequestService,  authService, favoriteService} = serviceManager();
 
   const initUserRoute = () => {
     const userController = () => UserController(userService());
@@ -50,11 +52,21 @@ module.exports = () => {
     const authController = () => AuthController(authService());
     return AuthRoute(authController);
   }
+  const initFavoriteRoute = () => {
+    const favoriteController = () => FavoriteController(favoriteService());
+    return FavoriteRoute(favoriteController);
+  }
 
   const initController = () => {
     app.use(jsonMiddleware);
-    app.use(AppRoute(initBookRoute(), initUserRoute(), initBookRequestRoute(), initAuthRoute()));
-  };
+    app.use(
+    AppRoute(initBookRoute(),
+    initUserRoute(),
+    initBookRequestRoute(),
+    initAuthRoute(),
+    initFavoriteRoute()     
+     ));
+  }; 
 
   const run = () => {
     initController();

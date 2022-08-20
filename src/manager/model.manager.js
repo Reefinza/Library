@@ -2,7 +2,8 @@ const User = require('../model/user.model');
 const Book = require('../model/book.model');
 const BookRequest = require('../model/books_request.model');
 const Category = require('../model/book_category.model');
-const Role = require('../model/role.model')
+const Role = require('../model/role.model');
+const Favorite = require('../model/favorite.model');
 
 
 
@@ -16,7 +17,8 @@ module.exports = (infraManager) => {
     const book = Book(db);
     const bookRequest = BookRequest(db);
     const category = Category(db);
-    const role = Role(db)
+    const role = Role(db);
+    const favorite = Favorite(db);
 
     
     
@@ -28,6 +30,8 @@ module.exports = (infraManager) => {
     category.hasMany(book);
     book.belongsTo(category);
 
+    user.belongsToMany(book, { through: favorite });
+    book.belongsToMany(user, { through: favorite });
 
     const modelManager = {
         sequelize: db.sequelize,
@@ -36,7 +40,8 @@ module.exports = (infraManager) => {
         user,
         bookRequest,
         category,
-        role
+        role,
+        favorite
     }   
     return modelManager
     
