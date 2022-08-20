@@ -1,21 +1,16 @@
 const jwt = require('jsonwebtoken');
-const jwt_decode = require('jwt-decode')
+const Response = require('../../utils/response')
 const config = require('../../config/config')
 
 module.exports = (req, res, next) => {
     try {
         const authHeader = req.headers['authorization'];
         if (!authHeader) {
-            return res.status(401).json({
-                "message": "Unauthorized"
-            })
+            return res.status(401).json(Response().errorMessage(res.statusCode, "Unauthorized"))
         }
         const token = authHeader.replace("Bearer ", "")
-        console.log('token', token)
         if (!token) {
-            return res.status(401).json({
-                "message": "Token incorrect!"
-            })
+            return res.status(401).json(Response().errorMessage(res.statusCode, "Invalid Token"))
         }
         const payload = jwt.decode(token, config().TokenSecret);
 
@@ -28,8 +23,6 @@ module.exports = (req, res, next) => {
         }
         next();
     } catch (err) {
-        res.status(401).json({
-            "message": err.message
-        })
+        res.status(401).json(Response().errorMessage(res.statusCode, err.message));
     }
 }

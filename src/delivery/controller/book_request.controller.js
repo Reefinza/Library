@@ -24,7 +24,7 @@ module.exports = (bookRequestService) => {
             res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
         }
     }
-  };
+
 
   const findById = async (req, res) => {
     try {
@@ -49,20 +49,20 @@ module.exports = (bookRequestService) => {
     }
   };
 
-  const remove = async (req, res) => {
+const remove = async (req, res) => {
     try {
-      const { id } = req.params;
-      const bookRequest = await removeBookRequest(id);
-      res.json(Response().successMessage(res.statusCode, "SUCCESS", bookRequest));
+        const { id } = req.params;
+        const bookRequest = await removeBookRequest(id);
+        res.json(Response().successMessage(res.statusCode, "SUCCESS", bookRequest));
     } catch (err) {
-      res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message));
+        res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message));
     }
-  };
-  return {
-    create,
-    list,
-    findById,
-    update,
-    remove,
-  };
-
+}
+    return {
+        create,
+        list,
+        findById,
+        update,
+        remove,
+    };
+}
