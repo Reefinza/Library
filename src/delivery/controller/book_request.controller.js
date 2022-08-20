@@ -29,7 +29,6 @@ module.exports = (bookRequestService) => {
   const findById = async (req, res) => {
     try {
       const id = req.user.id;
-      console.log(id);
       const { page, size, sortBy, sortType } = req.query;
       const { count, rows } = await findBookRequestById(+id, page, size, sortBy, sortType);
       res.json(Response().pagination(res.statusCode, "SUCCESS", rows, page, count, size, sortBy, sortType));

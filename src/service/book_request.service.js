@@ -1,9 +1,13 @@
 module.exports = (bookRequestRepo) => {
-    const { create, list, getById, remove, update } = bookRequestRepo();
+    const { create, list, getById, remove, update, requestCheck } = bookRequestRepo();
     const createNewBookRequest = async (payload) => {
+        const ifExist = await requestCheck(payload)
+        if(ifExist){
         try {
             return await create(payload);
         } catch (err) {
+            throw err
+        }} else {
             throw err
         }
     }
@@ -25,12 +29,12 @@ module.exports = (bookRequestRepo) => {
             if (isNaN(page) || isNaN(size)) {
                 page = 1, size = 10
             }
-            console.log(status)
             return await getById(id, page, size, sortBy, sortType);
         } catch (err) {
             throw err
         }
     }
+    
     const removeBookRequest = async (id) => {
         try {
             return await remove(id);

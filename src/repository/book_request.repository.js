@@ -60,6 +60,22 @@ module.exports = (dbModel) => { //bookRequestRepository()
         }
     }
 
+    const requestCheck = async (payload) => {
+            const { count } = await bookRequest.findAndCountAll({
+                where: {
+                    [Op.and]: [
+                    { title: { [Op.iLike]: payload.title } },
+                    { author: { [Op.iLike]: payload.author } },
+                    { publicationYearDate: payload.publicationYearDate },
+                ]},
+            })
+            if (count > 0) {
+                throw Error(400, 'Book already exist');
+            } else {
+                return true;
+            }
+        }
+
     const getById = async (id, page, size, sortBy = 'created_at', sortType = 'desc') => {
         try {
             const offset = size * (page - 1);
@@ -120,6 +136,6 @@ module.exports = (dbModel) => { //bookRequestRepository()
     }
 
     return {
-        create, list, getById, remove, update
+        create, list, getById, remove, update, requestCheck
     }
 }
