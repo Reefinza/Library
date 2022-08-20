@@ -65,4 +65,4 @@ module.exports = (bookRequestService) => {
     update,
     remove,
   };
-};
+
