@@ -1,33 +1,195 @@
 module.exports = async (bookRequest) => {
-
-    return await bookRequest.bulkCreate([
-        {
-            title: "The Lord of the Rings",
-            author:"J. R. R. Tolkien",
-            publicationYearDate: "1954",
-            userId:"2"
-        },
-        {
-            title: "The Lion, the Witch and the Wardrobe",
-            author:"C. S. Lewis",
-            publicationYearDate: "1950",
-            userId:"3"
-
-        },
-        {
-            title: "The Alchemist",
-            author:"Paulo Coelho",
-            publicationYearDate: "1988",
-            userId:"4"
-        },
-        {
-            title: "The Da Vidi Code",
-            author:"Dan Hadin",
-            publicationYearDate: "2007",
-            userId:"4"
-        }
-
-
-    ])
-
-}
+  return await bookRequest.bulkCreate([
+    {
+      title: "The Lord of the Rings",
+      author: "J. R. R. Tolkien",
+      publicationYearDate: "1954",
+      userId: "2",
+      status: true,
+    },
+    {
+      title: "The Lion, the Witch and the Wardrobe",
+      author: "C. S. Lewis",
+      publicationYearDate: "1950",
+      userId: "3",
+      status: true,
+    },
+    {
+      title: "The Alchemist",
+      author: "Paulo Coelho",
+      publicationYearDate: "1988",
+      userId: "4",
+      status: true,
+    },
+    {
+      title: "The Da Vidi Code",
+      author: "Dan Hadin",
+      publicationYearDate: "2007",
+      userId: "4",
+      status: true,
+    },
+    {
+      title: "The Da Vidi Code",
+      author: "Dan Hadin",
+      publicationYearDate: "2007",
+      userId: "15",
+      status: true,
+    },
+    {
+      title: "The Da Vidi Code",
+      author: "Dan Hadin",
+      publicationYearDate: "2007",
+      userId: "10",
+      status: true,
+    },
+    {
+      title: "The Da Vidi Code",
+      author: "Dan Hadin",
+      publicationYearDate: "2007",
+      userId: "8",
+      status: true,
+    },
+    {
+      title: "The Lord of the Rings",
+      author: "J. R. R. Tolkien",
+      publicationYearDate: "1954",
+      userId: "3",
+      status: true,
+    },
+    {
+      title: "The Lord of the Rings",
+      author: "J. R. R. Tolkien",
+      publicationYearDate: "1954",
+      userId: "6",
+      status: true,
+    },
+    {
+      title: "The Lord of the Rings",
+      author: "J. R. R. Tolkien",
+      publicationYearDate: "1954",
+      userId: "7",
+      status: true,
+    },
+    {
+      title: "The Lion, the Witch and the Wardrobe",
+      author: "C. S. Lewis",
+      publicationYearDate: "1950",
+      userId: "10",
+      status: true,
+    },
+    {
+      title: "The Lion, the Witch and the Wardrobe",
+      author: "C. S. Lewis",
+      publicationYearDate: "1950",
+      userId: "4",
+      status: true,
+    },
+    {
+      title: "The Lion, the Witch and the Wardrobe",
+      author: "C. S. Lewis",
+      publicationYearDate: "1950",
+      userId: "2",
+      status: true,
+    },
+    {
+      title: "The Lion, the Witch and the Wardrobe",
+      author: "C. S. Lewis",
+      publicationYearDate: "1950",
+      userId: "9",
+      status: true,
+    },
+    {
+      title: "The Lion, the Witch and the Wardrobe",
+      author: "C. S. Lewis",
+      publicationYearDate: "1950",
+      userId: "16",
+      status: true,
+    },
+    {
+      title: "The Alchemist",
+      author: "Paulo Coelho",
+      publicationYearDate: "1988",
+      userId: "2",
+      status: true,
+    },
+    {
+      title: "The Alchemist",
+      author: "Paulo Coelho",
+      publicationYearDate: "1988",
+      userId: "3",
+      status: true,
+    },
+    {
+      title: "The Alchemist",
+      author: "Paulo Coelho",
+      publicationYearDate: "1988",
+      userId: "7",
+      status: true,
+    },
+    {
+      title: "The Alchemist",
+      author: "Paulo Coelho",
+      publicationYearDate: "1988",
+      userId: "10",
+      status: true,
+    },
+    {
+      title: "The Alchemist",
+      author: "Paulo Coelho",
+      publicationYearDate: "1988",
+      userId: "11",
+      status: true,
+    },
+    {
+      title: "The Alchemist",
+      author: "Paulo Coelho",
+      publicationYearDate: "1988",
+      userId: "12",
+      status: true,
+    },
+    {
+      title: "The Alchemist",
+      author: "Paulo Coelho",
+      publicationYearDate: "1988",
+      userId: "16",
+      status: true,
+    },
+    {
+      title: "The Alchemist",
+      author: "Paulo Coelho",
+      publicationYearDate: "1988",
+      userId: "9",
+      status: true,
+    },
+    {
+      title: "Brianna dan Bottomwise",
+      author: "Andrea Hirata",
+      publicationYearDate: "2022",
+      userId: "9",
+    },
+    {
+      title: "National Geographic Indonesia Januari 2022",
+      author: "Gramedia",
+      publicationYearDate: "2022",
+      userId: "9",
+    },
+    {
+      title: "How To Deal With Sibling Rivalry?",
+      author: "Laksana",
+      publicationYearDate: "2022",
+      userId: "10",
+    },
+    {
+      title: "Renungan Harian Spirit Edisi September 2022",
+      author: "Spirit Bookfield",
+      publicationYearDate: "2022",
+      userId: "10",
+    },
+    {
+      title: "The War Is Over",
+      author: "Light Publishing (Pt Terang Kasih Karunia",
+      publicationYearDate: "2022",
+      userId: "10",
+    },
+  ]);
+};
