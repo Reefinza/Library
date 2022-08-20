@@ -12,7 +12,7 @@ module.exports = (db) => {
             allowNull: false
         },
         cover: {
-            type: DataTypes.STRING(50),
+            type: DataTypes.STRING(255),
             allowNull: true
         },
         author: {
@@ -24,7 +24,7 @@ module.exports = (db) => {
             allowNull: false
         },
         publicationYearDate: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING(4),
             allowNull: false
         },
         isbn: {

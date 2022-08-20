@@ -14,8 +14,8 @@ module.exports = (bookService) => {
 
   const list = async (req, res) => {
     try {
-      const { keyword, page, size, sortBy, sortType } = req.query;
-      const { count, rows } = await findAllBook(keyword, page, size, sortBy, sortType);
+      const { keyword, page, size, sortBy, sortType, bookCategory } = req.query;
+      const { count, rows } = await findAllBook(keyword, page, size, sortBy, sortType, bookCategory);
 
       res.json(Response().pagination(res.statusCode, "SUCCESS", rows, keyword, page, count, size, sortBy, sortType));
     } catch (err) {

@@ -2,9 +2,8 @@ module.exports = async (categoryModel)=>{
 
     return await categoryModel.bulkCreate([
          {name:'Novel'},
-         {name:'Cergram'},
          {name:'Komik'},
-         {name:'ensiklopedia'},
+         {name:'artikel'},
          {name:'nomik'},
          {name:'antologi'},
          {name:'dongeng'},
@@ -15,7 +14,6 @@ module.exports = async (categoryModel)=>{
          {name:'tafsir'},
          {name:'kamus'},
          {name:'panduan'},
-         {name:'atlas'},
          {name:'buku ilmiah'},
          {name:'buku teks'},
          {name:'majalah'}

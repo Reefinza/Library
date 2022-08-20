@@ -2,7 +2,7 @@ const Error = require('../utils/handlerError');
 
 module.exports = (modelManager) => { // CustomerRepository()
 
-    const { book, bookRequest, Op } = modelManager;
+    const { book, bookRequest, Op , category} = modelManager;
     const create = async (payload) => {
         try {
             const addRes = await book.create(payload);
@@ -28,7 +28,7 @@ module.exports = (modelManager) => { // CustomerRepository()
         }
     }
 
-    const list = async (keyword = '', page, size, sortBy = 'created_at', sortType = 'desc') => {
+    const list = async (keyword = '', page, size, sortBy = 'created_at', sortType = 'desc', bookCategory = '') => {
         try {
             const offset = size * (page - 1);
             const { count, rows } = await book.findAndCountAll({
@@ -36,8 +36,7 @@ module.exports = (modelManager) => { // CustomerRepository()
                     [Op.or]: [
                         { title: { [Op.iLike]: `%${keyword}%` } },
                         { author: { [Op.iLike]: `%${keyword}%` } },
-                        // { category_id: { [Op.iLike]: `%${keyword}%` } },
-                        { isbn: { [Op.iLike]: `%${keyword}%` } },
+                        { isbn: { [Op.iLike]: `%${keyword}%` } }
                     ]
                 },
                 offset: offset,
@@ -45,6 +44,14 @@ module.exports = (modelManager) => { // CustomerRepository()
                 order: [
                     [sortBy, sortType]
                 ],
+                include: {
+                    model: category,
+                    attributes: ['id',["name", "category"]],
+                    where: { name: { [Op.iLike]: `%${bookCategory}%` } }
+                },
+                attributes: {
+                    exclude : ['deletedAt', 'bookCategoryId']
+                }
             })
             if (count > 0) {
                 return { count, rows };

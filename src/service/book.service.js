@@ -9,13 +9,13 @@ module.exports = (bookRepo) => {
             throw err
         }
     }
-    const findAllBook = async (keyword, page, size, sortBy, sortType) => {
+    const findAllBook = async (keyword, page, size, sortBy, sortType, bookCategory) => {
         try {
             if (isNaN(page) || isNaN(size)) {
                 page = 1, size = 10
             }
-            const { count, rows } = await list(keyword, page, size, sortBy, sortType);
-            // console.log(rows);
+            const { count, rows } = await list(keyword, page, size, sortBy, sortType, bookCategory);
+
             return { count, rows }
         } catch (err) {
             throw err
