@@ -14,7 +14,6 @@ module.exports = (db) => {
     {
       freezeTableName: true,
       underscored: true,
-      paranoid: true,
     }
   );
 };

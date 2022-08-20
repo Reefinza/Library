@@ -32,6 +32,8 @@ module.exports = (infraManager) => {
 
     user.belongsToMany(book, { through: favorite });
     book.belongsToMany(user, { through: favorite });
+    favorite.belongsTo(book);
+    favorite.belongsTo(user)
 
     const modelManager = {
         sequelize: db.sequelize,

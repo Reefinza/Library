@@ -6,7 +6,9 @@ const bookRequestSeed = require('../model/seed/book_request.seed');
 const DbMigration = async (db) => {
 
     const { sequelize, role,book , category,user,bookRequest} = db;
-    sequelize.sync({force:true}).then( async () => {
+    sequelize.sync({force:true}).then( async () => { //dont use force:true in production
+
+    // sequelize.sync().then( async () => { //use this in production
 
       await  roleSeed(role);
       await  userSeed(user)

@@ -29,8 +29,8 @@ module.exports = (favoriteService) => {
     try {
       const bookId = req.params.book_id;
       const userId = req.user.id;
-      const res = await removeFavoriteBook({bookId,userId});
-      res.json(Response().successMessage(res.statusCode, "SUCCESS", res));
+      const result = await removeFavoriteBook({bookId,userId});
+      res.json(Response().successMessage(res.statusCode, "SUCCESS", result));
     } catch (err) {
       res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message));
     }
