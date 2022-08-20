@@ -2,7 +2,7 @@ const { passwordUtil, passwordCompare } = require("../utils/password.utils");
 const Error = require("../utils/handlerError");
 
 module.exports = (dbModel) => {
-  const { user, role } = dbModel;
+  const { user, Op } = dbModel;
   const create = async (payload) => {
     try {
       const password = await passwordUtil(payload.password);
@@ -25,15 +25,28 @@ module.exports = (dbModel) => {
     }
   };
 
-  const list = async () => {
+  const list = async (keyword = "", page, size, sortBy = "created_at", sortType = "desc") => {
     try {
-      return await user.findAll({
+      const offset = size * (page - 1);
+      const { count, rows } = await user.findAndCountAll({
+        where: {
+          [Op.or]: [{ username: { [Op.iLike]: `%${keyword}%` } }, { email: { [Op.iLike]: `%${keyword}%` } }],
+        },
         attributes: {
           exclude: ["password"],
         },
+        offset: offset,
+        limit: size,
+        order: [[sortBy, sortType]],
       });
+      if (count > 0) {
+        return { count, rows };
+      } else {
+        throw Error(404, "User not found");
+      }
     } catch (err) {
-      throw Error(err.statusCode, message);
+      // console.log(err.message);
+      throw Error(err.statusCode, err.message);
     }
   };
 
@@ -75,7 +88,7 @@ module.exports = (dbModel) => {
       if (result.length === 0) {
         return null;
       }
-      const userData = result[0].dataValues
+      const userData = result[0].dataValues;
       const validPassword = await passwordCompare(password, userData.password);
       if (!validPassword) {
         return null;
@@ -84,8 +97,8 @@ module.exports = (dbModel) => {
         id: userData.id,
         username: userData.username,
         password: userData.password,
-        roleId : userData.roleId
-      }
+        roleId: userData.roleId,
+      };
     } catch (err) {
       throw err.message;
     }

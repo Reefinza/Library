@@ -22,8 +22,9 @@ module.exports = (userService) => {
 
   const list = async (req, res) => {
     try {
-      const users = await findAllUser();
-      res.json(Response().successMessage(res.statusCode, "SUCCESS", users));
+      const { keyword, page, size, sortBy, sortType } = req.query;
+      const { count, rows } = await findAllUser(keyword, page, size, sortBy, sortType);
+      res.json(Response().pagination(res.statusCode, "SUCCESS", rows, keyword, page, count, size, sortBy, sortType));
     } catch (err) {
       res.status(400).json(Response().errorMessage(res.statusCode, err.message));
     }

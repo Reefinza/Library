@@ -9,9 +9,13 @@ module.exports = (userRepo) => {
     }
   };
 
-  const findAllUser = async () => {
+  const findAllUser = async (keyword, page, size, sortBy, sortType) => {
     try {
-      return await list();
+      if (isNaN(page) || isNaN(size)) {
+        (page = 1), (size = 10);
+      }
+      const { count, rows } = await list(keyword, page, size, sortBy, sortType);
+      return { count, rows };
     } catch (err) {
       throw err;
     }
