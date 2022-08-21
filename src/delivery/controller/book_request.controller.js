@@ -5,6 +5,7 @@ module.exports = (bookRequestService) => {
   const create = async (req, res) => {
     try {
       const payload = req.body;
+      payload.userId = req.user.id;
       const bookRequest = await createNewBookRequest(payload);
       res.json(Response().successMessage(res.statusCode, "SUCCESS", bookRequest));
     } catch (err) {
@@ -15,10 +16,10 @@ module.exports = (bookRequestService) => {
     const list = async (req, res) => {
         try {
             const { keyword, status, page, size, sortBy, sortType } = req.query
-            const { count, rows } = await findAllBookRequest(keyword, status, page, size, sortBy, sortType);
+          const { count, rows } = await findAllBookRequest(keyword, status, page, size, sortBy, sortType);
             res.json(Response().pagination(
                 res.statusCode, 'SUCCESS', rows,
-                keyword, status, page, count, size, sortBy, sortType
+                keyword, page, count, size, sortBy, sortType
             ));
         } catch (err) {
             res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message))
@@ -29,10 +30,9 @@ module.exports = (bookRequestService) => {
   const findById = async (req, res) => {
     try {
       const id = req.user.id;
-      console.log(id);
       const { page, size, sortBy, sortType } = req.query;
       const { count, rows } = await findBookRequestById(+id, page, size, sortBy, sortType);
-      res.json(Response().pagination(res.statusCode, "SUCCESS", rows, page, count, size, sortBy, sortType));
+      res.json(Response().pagination(res.statusCode, "SUCCESS", rows,id, page, count, size, sortBy, sortType));
     } catch (err) {
       res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message));
     }

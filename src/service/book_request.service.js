@@ -25,7 +25,6 @@ module.exports = (bookRequestRepo) => {
             if (isNaN(page) || isNaN(size)) {
                 page = 1, size = 10
             }
-            console.log(status)
             return await getById(id, page, size, sortBy, sortType);
         } catch (err) {
             throw err

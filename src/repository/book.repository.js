@@ -66,7 +66,15 @@ module.exports = (modelManager) => {
 
   const getById = async (id) => {
     try {
-      const res = await book.findByPk(id);
+        const res = await book.findByPk(id, {
+            include: {
+                model: category,
+                attributes: ['id', ["name", "category"]]
+            },
+            attributes: {
+                exclude: ['deletedAt', 'bookCategoryId']
+            }
+      });
       if (res) {
         return res;
       } else {
@@ -79,8 +87,6 @@ module.exports = (modelManager) => {
 
     const remove = async (id) => {
         try {
-            // const res = await book.findByPk(id);
-            // if (!res) return `book with value ID ${id} not found!`;
             const res = await book.destroy({ where: { id: id } });
 
             if (res === 0) {
