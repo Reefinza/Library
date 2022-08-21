@@ -1,5 +1,5 @@
-const {Register} = require('../utils/validate');
-const Error = require('../utils/handlerErrorService');
+const { Register, UpdateUser } = require("../utils/validate");
+const Error = require("../utils/handlerErrorService");
 module.exports = (userRepo) => {
   const { create, list, getById, update, getUserByUsernamePassword } = userRepo();
 
@@ -8,9 +8,6 @@ module.exports = (userRepo) => {
       const validPayload = await Register.validateAsync(payload);
       return await create(validPayload);
     } catch (err) {
-      
-   
-     
       throw Error(err.statusCode, err.message);
     }
   };
@@ -37,9 +34,10 @@ module.exports = (userRepo) => {
 
   const updateUser = async (payload) => {
     try {
-      return await update(payload);
+      const validPayload = await UpdateUser.validateAsync(payload);
+      return await update(validPayload);
     } catch (err) {
-      throw err;
+      throw Error(err.statusCode, err.message);
     }
   };
   const findUserByUsernamePassword = async (username, password) => {
