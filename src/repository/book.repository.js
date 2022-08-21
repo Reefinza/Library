@@ -1,4 +1,4 @@
-const Error = require("../utils/handlerError");
+const Error = require("../utils/handlerErrorRepo");
 
 module.exports = (modelManager) => {
   // CustomerRepository()

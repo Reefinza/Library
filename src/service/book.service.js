@@ -1,12 +1,14 @@
-const Error = require("../utils/handlerError");
+const Error = require('../utils/handlerErrorService');
+const {addBook} = require('../utils/validate');
 
 module.exports = (bookRepo) => {
   const { create, list, getById, remove, update } = bookRepo();
     const addNewBook = async (payload) => {
         try {
-            return await create(payload);
+            const validPayload = await addBook.validateAsync(payload);
+            return await create(validPayload);
         } catch (err) {
-            throw err;
+            throw Error(err.statusCode, err.message);
         }
     }
     const findAllBook = async (keyword, page, size, sortBy, sortType, bookCategory) => {

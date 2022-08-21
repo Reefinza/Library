@@ -15,7 +15,6 @@ module.exports = (userService) => {
       };
       res.json(Response().successMessage(res.statusCode, "SUCCESS", data));
     } catch (err) {
-      console.log(err);
       res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message));
     }
   };
