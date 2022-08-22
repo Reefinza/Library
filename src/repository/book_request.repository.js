@@ -2,7 +2,7 @@ const Error = require("../utils/handlerErrorRepo");
 module.exports = (dbModel) => {
   //bookRequestRepository()
 
-  const { user, bookRequest, Op } = dbModel;
+  const { user, book, bookRequest, Op } = dbModel;
   const create = async (payload) => {
     try {
       const addRes = await bookRequest.create(payload);
@@ -56,7 +56,7 @@ module.exports = (dbModel) => {
   };
 
   const requestCheck = async (payload) => {
-    const { count } = await bookRequest.findAndCountAll({
+    const { count } = await book.findAndCountAll({
       where: {
         [Op.and]: [{ title: { [Op.iLike]: payload.title } }, { author: { [Op.iLike]: payload.author } }, { publicationYearDate: payload.publicationYearDate }],
       },
