@@ -3,9 +3,13 @@ const Response = require("../../utils/response");
 module.exports = (authService) => {
   const { login, register } = authService();
   const loginAccount = async (req, res) => {
-    const payload = req.body;
-    const token = await login(payload);
-    res.status(201).json({ token: token });
+    try {
+      const payload = req.body;
+      const token = await login(payload);
+      res.status(201).json({ token: token });
+    } catch (err) {
+      res.status(err.statusCode).json(Response().errorMessage(err.statusCode, err.message));
+    }
   };
   const registerAccount = async (req, res) => {
     try {

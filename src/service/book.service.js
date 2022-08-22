@@ -1,26 +1,28 @@
-const Error = require("../utils/handlerError");
+const Error = require("../utils/handlerErrorService");
+const { addBook, UpdateBook } = require("../utils/validate");
 
 module.exports = (bookRepo) => {
   const { create, list, getById, remove, update } = bookRepo();
-    const addNewBook = async (payload) => {
-        try {
-            return await create(payload);
-        } catch (err) {
-            throw err;
-        }
+  const addNewBook = async (payload) => {
+    try {
+      const validPayload = await addBook.validateAsync(payload);
+      return await create(validPayload);
+    } catch (err) {
+      throw Error(err.statusCode, err.message);
     }
-    const findAllBook = async (keyword, page, size, sortBy, sortType, bookCategory) => {
-        try {
-            if (isNaN(page) || isNaN(size)) {
-                page = 1, size = 10
-            }
-            const { count, rows } = await list(keyword, page, size, sortBy, sortType, bookCategory);
+  };
+  const findAllBook = async (keyword, page, size, sortBy, sortType, bookCategory) => {
+    try {
+      if (isNaN(page) || isNaN(size)) {
+        (page = 1), (size = 10);
+      }
+      const { count, rows } = await list(keyword, page, size, sortBy, sortType, bookCategory);
 
-            return { count, rows }
-        } catch (err) {
-            throw err
-        }
+      return { count, rows };
+    } catch (err) {
+      throw err;
     }
+  };
 
   const findBookById = async (id) => {
     try {
@@ -40,9 +42,10 @@ module.exports = (bookRepo) => {
 
   const updateBook = async (payload) => {
     try {
-      return await update(payload);
+      const validPayload = await UpdateBook.validateAsync(payload);
+      return await update(validPayload);
     } catch (err) {
-      throw err;
+      throw Error(err.statusCode, err.message);
     }
   };
 

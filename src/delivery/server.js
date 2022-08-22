@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 
+
 const jsonMiddleware = require("./middleware/json.middleware");
 const AppRoute = require("./route/app.route");
 
@@ -20,6 +21,7 @@ const BookRoute = require("../delivery/route/book.route");
 const BookRequestRoute = require("../delivery/route/book_request.route");
 const AuthRoute = require("../delivery/route/auth.route");
 const FavoriteRoute = require("../delivery/route/favorite.route");
+const ErrorRoute = require("../delivery/route/error.route");
 
 const DbMigration = require("../config/db_migratioin");
 const Config = require("../config/config");
@@ -66,6 +68,7 @@ module.exports = () => {
     initAuthRoute(),
     initFavoriteRoute()     
      ));
+     app.use(ErrorRoute);
   }; 
 
   const run = () => {

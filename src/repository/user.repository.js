@@ -1,5 +1,5 @@
 const { passwordUtil, passwordCompare } = require("../utils/password.utils");
-const Error = require("../utils/handlerError");
+const Error = require("../utils/handlerErrorRepo");
 
 module.exports = (dbModel) => {
   const { user, Op } = dbModel;
