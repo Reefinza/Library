@@ -14,7 +14,7 @@ module.exports = async (user) => {
       roleId: 2,
     },
     {
-      username: "M Ari",
+      username: "Marizal",
       password: await passwordUtil("password"),
       email: "ari@gmail.com",
       roleId: 2,
@@ -26,7 +26,7 @@ module.exports = async (user) => {
       roleId: 2,
     },
     {
-      username: "Raga",
+      username: "Raga Prawida",
       password: await passwordUtil("password"),
       email: "raga@gmail.com",
       roleId: 2,
@@ -45,7 +45,7 @@ module.exports = async (user) => {
       roleId: 2,
     },
     {
-      username: "Iqrom",
+      username: "Iqrom88",
       password: await passwordUtil("password"),
       email: "iqrom@gmail.com",
       roleId: 2,
@@ -63,7 +63,7 @@ module.exports = async (user) => {
       roleId: 2,
     },
     {
-      username: "Fauzi",
+      username: "Fauzi5",
       password: await passwordUtil("password"),
       email: "fauzi@gmail.com",
       roleId: 2,
@@ -75,19 +75,19 @@ module.exports = async (user) => {
       roleId: 2,
     },
     {
-      username: "Ikbar",
+      username: "Ikbar00",
       password: await passwordUtil("password"),
       email: "ikbar@gmail.com",
       roleId: 2,
     },
     {
-      username: "Riza",
+      username: "Riza99",
       password: await passwordUtil("password"),
       email: "riza@gmail.com",
       roleId: 2,
     },
     {
-      username: "Fii",
+      username: "Fii maarif",
       password: await passwordUtil("password"),
       email: "fii@gmail.com",
       roleId: 2,
@@ -117,7 +117,7 @@ module.exports = async (user) => {
       roleId: 2,
     },
     {
-      username: "Fadli",
+      username: "Fadli77",
       password: await passwordUtil("password"),
       email: "fadli@gmail.com",
       roleId: 2,
