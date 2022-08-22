@@ -20,7 +20,6 @@ module.exports = (userService) => {
         {
           id: user.id,
           username: user.username,
-          password: user.password,
           role_id: user.roleId,
         },
         TokenSecret,
